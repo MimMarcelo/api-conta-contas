@@ -1,0 +1,32 @@
+{
+    "name": "mimmarcelo/api-conta-contas",
+    "description": "API das funcionalidades do sistema de controle financeiro ContaConta$",
+    "keywords": ["financeiro", "contas", "controle", "pessoal"],
+    "license": "GNU General Public License v3.0",
+    "type": "project",
+    "require": {
+        "php": "^7.4.0",
+        "firebase/php-jwt": "^5.2",
+        "laravel/lumen-framework": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MimMarcelo\\API\\ContaContas\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    }
+}
