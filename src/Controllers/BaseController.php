@@ -33,7 +33,8 @@ abstract class BaseController extends Controller
     
     public function store(Request $request) {
         $this->validate($request, $this->camposParaValidar());
-        
+//        var_dump($request);
+//        exit();
         $recurso = $this->controller::create($request->all());
         if(is_null($recurso)){
             return response()->json("Não foi possível criar o recurso", 400);

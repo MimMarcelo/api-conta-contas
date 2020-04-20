@@ -23,7 +23,8 @@ class ContasController extends BaseController
     public function camposParaValidar(): array {
         return [
             "nome" => "required",
-            "valor" => "required"
+            "valor" => "required",
+            "tipo_id" => "exists:MimMarcelo\API\ContaContas\Model\Tipo\Tipo,id"
         ];
     }
 

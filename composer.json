@@ -5,14 +5,18 @@
     "license": "GNU General Public License v3.0",
     "type": "project",
     "require": {
-        "php": "^7.4.0",
+        "php": "^7.2.5",
+        "doctrine/dbal": "^2.10",
         "firebase/php-jwt": "^5.2",
         "laravel/lumen-framework": "^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^8.5"
     },
     "autoload": {
+        "classmap": [
+          "database"
+        ],
         "psr-4": {
             "MimMarcelo\\API\\ContaContas\\": "src/"
         }
