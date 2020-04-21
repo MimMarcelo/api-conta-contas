@@ -25,7 +25,16 @@ abstract class BaseController extends Controller
     }
     
     public function index(Request $request) {
-        return $this->model::paginate($request->page);
+        if(isset($request->page)){
+            if(!isset($request->per_page)){
+                $request->per_page = 15;
+            }
+            $per_page = $request->per_page;
+            $data = $this->model::paginate($per_page);
+            $data->appends(['per_page' => $per_page]);
+            return $data;
+        }
+        return $this->responseData($this->model::all());
     }
     
     public function store(Request $request) {
@@ -35,19 +44,19 @@ abstract class BaseController extends Controller
         
         $recurso = $this->model::create($request->all());
         if(is_null($recurso)){
-            return response()->json("Não foi possível criar o recurso", 400);
+            return $this->responseError("Não foi possível criar o recurso");
         }
         
-        return response()->json($recurso, 201);
+        return $this->responseData($recurso, 201);
     }
     
     public function show(int $id) {
         $recurso = $this->model::find($id);
         if(is_null($recurso)){
-            return response()->json("Recurso não encontrado", 400);
+            return $this->responseError("Recurso não encontrado");
         }
         
-        return response()->json($recurso);
+        return $this->responseData($recurso);
     }
     
     public function update(int $id, Request $request) {
@@ -57,22 +66,30 @@ abstract class BaseController extends Controller
         
         $recurso = $this->model::find($id);
         if(is_null($recurso)){
-            return response()->json("Recurso não encontrado", 400);
+            return $this->responseError("Recurso não encontrado");
         }
         
         $recurso->fill($request->all());
         $recurso->save();
         
-        return response()->json($recurso);
+        return $this->responseData($recurso);
     }
     
     public function destroy(int $id) {
         $recurso = $this->model::find($id);
         if(is_null($recurso)){
-            return response()->json("Recurso não encontrado", 400);
+            return $this->responseError("Recurso não encontrado");
         }
         
         $recurso->delete();
-        return response()->json($recurso);
+        return $this->responseData($recurso);
+    }
+    
+    private function responseData(object $data, int $status = 200) {
+        return response()->json(['data' => $data], $status);
+    }
+    
+    private function responseError(string $message, int $status = 400) {
+        return response()->json(['error' => $message], $status);
     }
 }
