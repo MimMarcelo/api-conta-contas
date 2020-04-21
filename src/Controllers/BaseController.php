@@ -10,32 +10,30 @@ namespace MimMarcelo\API\ContaContas\Controllers;
 
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller;
-
+use MimMarcelo\API\ContaContas\Model\Helper\ValidateFields;
 /**
- * Description of $this->controllersController
+ * Description of BaseController
  *
  * @author Marcelo Júnior
  */
 abstract class BaseController extends Controller
 {
-    /** @var \Laravel\Lumen\Routing\Controller $controller */
-    private $controller;
+    private $model;
 
-    public function __construct(string $controller) {
-        $this->controller = $controller;
+    public function __construct(string $model) {
+        $this->model = $model;
     }
-
-    public abstract function camposParaValidar(): array;
     
     public function index(Request $request) {
-        return $this->controller::paginate($request->page);
+        return $this->model::paginate($request->page);
     }
     
     public function store(Request $request) {
-        $this->validate($request, $this->camposParaValidar());
-//        var_dump($request);
-//        exit();
-        $recurso = $this->controller::create($request->all());
+        if((new $this->model()) instanceof ValidateFields){
+            $this->validate($request, $this->model::validateFields());
+        }
+        
+        $recurso = $this->model::create($request->all());
         if(is_null($recurso)){
             return response()->json("Não foi possível criar o recurso", 400);
         }
@@ -44,7 +42,7 @@ abstract class BaseController extends Controller
     }
     
     public function show(int $id) {
-        $recurso = $this->controller::find($id);
+        $recurso = $this->model::find($id);
         if(is_null($recurso)){
             return response()->json("Recurso não encontrado", 400);
         }
@@ -53,9 +51,11 @@ abstract class BaseController extends Controller
     }
     
     public function update(int $id, Request $request) {
-        $this->validate($request, $this->camposParaValidar());
+        if((new $this->model()) instanceof ValidateFields){
+            $this->validate($request, $this->model::validateFields());
+        }
         
-        $recurso = $this->controller::find($id);
+        $recurso = $this->model::find($id);
         if(is_null($recurso)){
             return response()->json("Recurso não encontrado", 400);
         }
@@ -67,7 +67,7 @@ abstract class BaseController extends Controller
     }
     
     public function destroy(int $id) {
-        $recurso = $this->controller::find($id);
+        $recurso = $this->model::find($id);
         if(is_null($recurso)){
             return response()->json("Recurso não encontrado", 400);
         }

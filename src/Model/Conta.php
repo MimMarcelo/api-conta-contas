@@ -2,17 +2,17 @@
 namespace MimMarcelo\API\ContaContas\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use MimMarcelo\API\ContaContas\Model\Tipo\Tipo;
+use MimMarcelo\API\ContaContas\Model\Helper\ValidateFields;
 /**
  * Description of Conta
  *
  * @author Marcelo Júnior
  */
-class Conta extends Model
+class Conta extends Model implements ValidateFields
 {
     public $timestamps = false;
     
-    protected $fillable = ['nome', 'valor', 'tipo_id' => 'tipo', 'data'];
+    protected $fillable = ['nome', 'valor', 'tipo_id', 'data'];
     protected $hidden = ['tipo_id'];
     protected $casts = [
         'valor' => 'double',
@@ -26,4 +26,14 @@ class Conta extends Model
     public function getTipoAttribute() {
         return Tipo::find($this->attributes['tipo_id']);
     }
+
+    public static function validateFields(): array {
+        return [
+            "nome" => "required",
+            "valor" => "required",
+            "tipo_id" => "exists:MimMarcelo\API\ContaContas\Model\Tipo,id",
+            "data" => "required|date"
+        ];
+    }
+
 }

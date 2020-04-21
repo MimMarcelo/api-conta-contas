@@ -6,16 +6,13 @@
  * and open the template in the editor.
  */
 
-namespace MimMarcelo\API\ContaContas\Model\Tipo;
+namespace MimMarcelo\API\ContaContas\Model\Helper;
 
 /**
- * Description of Entrada
+ * Description of BaseModel
  *
  * @author Marcelo Júnior
  */
-class Entrada extends TipoConta
-{
-    public function __construct() {
-        parent::__construct(1);
-    }
+interface ValidateFields {
+    public static function validateFields(): array;
 }

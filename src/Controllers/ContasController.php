@@ -19,14 +19,4 @@ class ContasController extends BaseController
     public function __construct() {
         parent::__construct(Conta::class);
     }
-
-    public function camposParaValidar(): array {
-        return [
-            "nome" => "required",
-            "valor" => "required",
-            "tipo_id" => "exists:MimMarcelo\API\ContaContas\Model\Tipo\Tipo,id",
-            "data" => "required|date"
-        ];
-    }
-
 }

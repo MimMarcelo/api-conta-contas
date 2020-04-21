@@ -8,7 +8,7 @@
 
 namespace MimMarcelo\API\ContaContas\Controllers;
 
-use MimMarcelo\API\ContaContas\Model\Tipo\Tipo;
+use MimMarcelo\API\ContaContas\Model\Tipo;
 /**
  * Description of ContasController
  *
@@ -19,12 +19,4 @@ class TiposController extends BaseController
     public function __construct() {
         parent::__construct(Tipo::class);
     }
-
-    public function camposParaValidar(): array {
-        return [
-            "sigla" => "required",
-            "nome" => "required"
-        ];
-    }
-
 }
