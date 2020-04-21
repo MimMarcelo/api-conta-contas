@@ -10,10 +10,14 @@ use MimMarcelo\API\ContaContas\Model\Tipo\Tipo;
  */
 class Conta extends Model
 {
-    protected $fillable = ['nome', 'valor', 'tipo_id'];
-    protected $appends = ['tipo'];
-    
     public $timestamps = false;
+    
+    protected $fillable = ['nome', 'valor', 'tipo_id' => 'tipo', 'data'];
+    protected $hidden = ['tipo_id'];
+    protected $casts = [
+        'valor' => 'double',
+    ];
+    protected $appends = ['tipo'];
     
     public function tipo() {
         return $this->hasOne(Tipo::class);

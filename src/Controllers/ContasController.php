@@ -24,7 +24,8 @@ class ContasController extends BaseController
         return [
             "nome" => "required",
             "valor" => "required",
-            "tipo_id" => "exists:MimMarcelo\API\ContaContas\Model\Tipo\Tipo,id"
+            "tipo_id" => "exists:MimMarcelo\API\ContaContas\Model\Tipo\Tipo,id",
+            "data" => "required|date"
         ];
     }
 
