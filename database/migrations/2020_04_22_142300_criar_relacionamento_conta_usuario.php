@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CriarTabelaTiposconta extends Migration
+class CriarRelacionamentoContaUsuario extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CriarTabelaTiposconta extends Migration
      */
     public function up()
     {
-        Schema::create('tipos', function (Blueprint $table) {
-            $table->id();
-            $table->string("sigla");
-            $table->string("nome");
-            $table->integer("tipo_conta")->default(-1);
+        Schema::table('contas', function (Blueprint $table) {
+            $table->integer('usuario_id')->default(1);
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
         });
     }
 
@@ -28,6 +26,8 @@ class CriarTabelaTiposconta extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_conta');
+        Schema::table('contas', function (Blueprint $table) {
+            //
+        });
     }
 }

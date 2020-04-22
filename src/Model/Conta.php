@@ -12,12 +12,17 @@ class Conta extends Model implements ValidateFields
 {
     public $timestamps = false;
     
-    protected $fillable = ['nome', 'valor', 'tipo_id', 'data'];
+    protected $fillable = ['nome', 'valor', 'tipo_id', 'usuario_id', 'data'];
     protected $hidden = ['tipo_id'];
     protected $casts = [
         'valor' => 'double',
+        'usuario_id' => 'int'
     ];
     protected $appends = ['tipo'];
+    
+    public function usuario() {
+        return $this->belongsTo(Usuario::class);
+    }
     
     public function tipo() {
         return $this->hasOne(Tipo::class);
@@ -32,8 +37,8 @@ class Conta extends Model implements ValidateFields
             "nome" => "required",
             "valor" => "required",
             "tipo_id" => "required|exists:MimMarcelo\API\ContaContas\Model\Tipo,id",
+//            "usuario_id" => "required|exists:MimMarcelo\API\ContaContas\Model\Usuario,id",
             "data" => "required|date"
         ];
     }
-
 }

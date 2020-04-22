@@ -17,8 +17,9 @@ use MimMarcelo\API\ContaContas\Model\Periodo;
 class PeriodoController extends ResponseController
 {    
     public function index(int $ano, int $mes) {
+        $usuarioId = auth()->user()->id;
         $periodo = new Periodo();
-        $retorno = $periodo::all($ano, $mes);
+        $retorno = $periodo::all($ano, $mes, $usuarioId);
         if(is_string($retorno)){
             return $this->responseError($retorno);
         }

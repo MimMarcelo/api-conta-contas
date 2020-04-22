@@ -15,10 +15,10 @@ class Tipo extends Model implements ValidateFields
     
     public $timestamps = false;
     
-    protected $table = "tipos_conta";
-    protected $fillable = ['sigla', 'nome', 'tipo_conta'];
+    protected $fillable = ['sigla', 'nome', 'tipo_conta', 'usuario_id'];
     protected $casts = [
         'tipo_conta' => 'int',
+        'usuario_id' => 'int'
     ];
 
     public function conta() {

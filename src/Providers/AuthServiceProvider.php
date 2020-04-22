@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace MimMarcelo\API\ContaContas\Providers;
 
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Firebase\JWT\JWT;
+use MimMarcelo\API\ContaContas\Model\Usuario;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -41,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
             
             $dadosAutenticacao = JWT::decode($token, env("JWT_KEY"), ["HS256"]);
 //            return new \Illuminate\Auth\GenericUser(["email" => $dadosAutenticacao["email"]]);
-            return User::where('email', $dadosAutenticacao->email)->first();
+            return Usuario::where('email', $dadosAutenticacao->email)->first();
                 
         });
     }

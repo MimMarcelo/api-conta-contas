@@ -78,7 +78,7 @@ $app->configure('src');
 
 $app->routeMiddleware([
 //    'auth' => App\Http\Middleware\Authenticate::class,
-    'autenticador' => MimMarcelo\API\ContaContas\Middleware\Autenticador::class,
+    'auth' => MimMarcelo\API\ContaContas\Middleware\Autenticador::class,
 ]);
 
 /*
@@ -93,7 +93,7 @@ $app->routeMiddleware([
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-//$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(MimMarcelo\API\ContaContas\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

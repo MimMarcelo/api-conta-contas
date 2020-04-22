@@ -10,7 +10,7 @@ use MimMarcelo\API\ContaContas\Model\Helper\ValidateFields;
  */
 class Periodo implements ValidateFields{
     
-    public static function all(int $ano, int $mes)
+    public static function all(int $ano, int $mes, int $usuarioId)
     {
         if(!Periodo::checkAno($ano)){
             return "O ano deve ser um número";
@@ -20,6 +20,7 @@ class Periodo implements ValidateFields{
         }
         
         $contas = Conta::query()
+                ->where('usuario_id', '=', $usuarioId)
                 ->whereMonth("data", "=", $mes)
                 ->whereYear("data", "=", $ano)
                 ->orderBy("tipo_id")

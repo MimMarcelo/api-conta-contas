@@ -12,7 +12,7 @@
  */
 
 /** @var Laravel\Lumen\Routing\Router $router */
-$router->get('/', "UserController@index");
+$router->get('/', "UsuarioController@index");
 
 $router->group(['prefix' => 'api'], function() use ($router) {
 
@@ -20,7 +20,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
     
     $router->get('periodo/{ano}/{mes}', 'PeriodoController@index');
     
-    $router->group(['prefix' => 'contas', 'middleware' => 'autenticador'], function() use ($router) {
+    $router->group(['prefix' => 'contas', 'middleware' => 'auth'], function() use ($router) {
 
         $router->post('', 'ContasController@store');
 
@@ -29,7 +29,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
         $router->put('{id}', 'ContasController@update');
         $router->delete('{id}', 'ContasController@destroy');
     });
-    $router->group(['prefix' => 'tipos', 'middleware' => 'autenticador'], function() use ($router) {
+    $router->group(['prefix' => 'tipos', 'middleware' => 'auth'], function() use ($router) {
 
         $router->post('', 'TiposController@store');
 
