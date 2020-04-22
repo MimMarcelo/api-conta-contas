@@ -16,9 +16,11 @@ $router->get('/', "UserController@index");
 
 $router->group(['prefix' => 'api'], function() use ($router) {
 
+    $router->post('login', 'UsuarioController@login');
+    
     $router->get('periodo/{ano}/{mes}', 'PeriodoController@index');
     
-    $router->group(['prefix' => 'contas'], function() use ($router) {
+    $router->group(['prefix' => 'contas', 'middleware' => 'autenticador'], function() use ($router) {
 
         $router->post('', 'ContasController@store');
 
@@ -27,7 +29,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
         $router->put('{id}', 'ContasController@update');
         $router->delete('{id}', 'ContasController@destroy');
     });
-    $router->group(['prefix' => 'tipos'], function() use ($router) {
+    $router->group(['prefix' => 'tipos', 'middleware' => 'autenticador'], function() use ($router) {
 
         $router->post('', 'TiposController@store');
 

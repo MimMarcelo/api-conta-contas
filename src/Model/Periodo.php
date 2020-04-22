@@ -22,7 +22,7 @@ class Periodo implements ValidateFields{
         $contas = Conta::query()
                 ->whereMonth("data", "=", $mes)
                 ->whereYear("data", "=", $ano)
-                ->orderBy("data")
+                ->orderBy("tipo_id")
                 ->get();
         return $contas;
     }
