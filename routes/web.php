@@ -16,6 +16,8 @@ $router->get('/', "UserController@index");
 
 $router->group(['prefix' => 'api'], function() use ($router) {
 
+    $router->get('periodo/{ano}/{mes}', 'PeriodoController@index');
+    
     $router->group(['prefix' => 'contas'], function() use ($router) {
 
         $router->post('', 'ContasController@store');

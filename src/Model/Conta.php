@@ -31,7 +31,7 @@ class Conta extends Model implements ValidateFields
         return [
             "nome" => "required",
             "valor" => "required",
-            "tipo_id" => "exists:MimMarcelo\API\ContaContas\Model\Tipo,id",
+            "tipo_id" => "required|exists:MimMarcelo\API\ContaContas\Model\Tipo,id",
             "data" => "required|date"
         ];
     }

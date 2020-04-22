@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace MimMarcelo\API\ContaContas\Controllers;
 
 use Illuminate\Http\Request;
@@ -16,7 +10,7 @@ use MimMarcelo\API\ContaContas\Model\Helper\ValidateFields;
  *
  * @author Marcelo Júnior
  */
-abstract class BaseController extends Controller
+abstract class BaseController extends ResponseController
 {
     private $model;
 
@@ -83,13 +77,5 @@ abstract class BaseController extends Controller
         
         $recurso->delete();
         return $this->responseData($recurso);
-    }
-    
-    private function responseData(object $data, int $status = 200) {
-        return response()->json(['data' => $data], $status);
-    }
-    
-    private function responseError(string $message, int $status = 400) {
-        return response()->json(['error' => $message], $status);
     }
 }
