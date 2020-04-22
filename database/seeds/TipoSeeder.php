@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use MimMarcelo\API\ContaContas\Model\Tipo\Tipo;
+use MimMarcelo\API\ContaContas\Model\Tipo;
 
 class TipoSeeder extends Seeder
 {
